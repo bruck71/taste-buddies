@@ -71,7 +71,13 @@ ul.nav-pills a.nav-link {
   --bs-nav-pills-link-active-color: #fff;
   --bs-nav-pills-link-active-bg: transparent;
 }
+
 .navbar {
   --bs-navbar-color: #fff;
 
-  }
+}
+
+.logo-img {
+    max-width: 100px;
+    margin-right: 5px;
+}
