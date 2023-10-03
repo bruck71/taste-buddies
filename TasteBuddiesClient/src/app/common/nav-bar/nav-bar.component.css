@@ -61,17 +61,23 @@ ul.nav-pills a.nav-link:hover {
 }
 
 
+/* Was throwing a problem for empty rule set so I commented it out */
+/* ul.nav-pills a.nav-link {
 
-ul.nav-pills a.nav-link {
-
-}
+} */
 
 .nav-pills {
   --bs-nav-pills-border-radius: 0.375rem;
   --bs-nav-pills-link-active-color: #fff;
   --bs-nav-pills-link-active-bg: transparent;
 }
+
 .navbar {
   --bs-navbar-color: #fff;
 
-  }
+}
+
+.logo-img {
+    max-width: 250px;
+    margin-right: 2px;
+}
