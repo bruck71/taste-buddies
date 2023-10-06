@@ -18,7 +18,7 @@ import { HeaderComponent } from './common/header/header.component';
 import { NavBarButtonComponent } from './common/nav-bar/nav-bar-button/nav-bar-button.component';
 import { EventComponent } from './events/event.component';
 import { AccountComponent } from './account/account.component';
-import { UserEventsComponent } from './events/user-events/user-events.component';
+import { EventHomeComponent } from './events/event-home/event-home.component';
 import { PageNotFoundComponent } from './errors/page-not-found/page-not-found.component';
 import { EventFormComponent } from './events/event-form/event-form.component';
 import { EventJoinComponent } from './events/event-join/event-join.component';
@@ -42,7 +42,7 @@ import { EventResultRightComponent } from './events/event-result/event-result-ri
     NavBarButtonComponent,
     EventComponent,
     AccountComponent,
-    UserEventsComponent,
+    EventHomeComponent,
     PageNotFoundComponent,
     EventFormComponent,
     EventJoinComponent,

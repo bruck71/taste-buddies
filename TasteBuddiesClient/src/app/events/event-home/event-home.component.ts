@@ -7,11 +7,11 @@ import { Observable, switchMap } from 'rxjs';
 import { EventService } from 'src/services/event.service';
 
 @Component({
-  selector: 'app-user-events',
-  templateUrl: './user-events.component.html',
-  styleUrls: ['./user-events.component.css']
+  selector: 'app-event-home',
+  templateUrl: './event-home.component.html',
+  styleUrls: ['./event-home.component.css']
 })
-export class UserEventsComponent implements OnInit {
+export class EventHomeComponent implements OnInit {
 
   upcommingEvents: Array<Event> = [];
   pastEvents: Array<Event> = [];
