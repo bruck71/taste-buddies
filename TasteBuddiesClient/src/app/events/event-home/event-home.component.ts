@@ -5,6 +5,7 @@ import { Event } from 'src/models/event';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, switchMap } from 'rxjs';
 import { EventService } from 'src/services/event.service';
+import { StorageService } from 'src/services/storage.service';
 
 @Component({
   selector: 'app-event-home',
@@ -18,10 +19,12 @@ export class EventHomeComponent implements OnInit {
   // note: trailer $ is a convention for Observables in ng
   events$: Observable<Event[]>;
   selectedID: number;
+  isLoggedIn = false;
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
+    private storageService: StorageService,
     ) {
       this.eventService.getEvents().subscribe({
         next: res => {
@@ -47,6 +50,7 @@ export class EventHomeComponent implements OnInit {
         return this.eventService.getEvents();
       })
     )
+    this.isLoggedIn = this.storageService.isLoggedIn();
   }
 
 }

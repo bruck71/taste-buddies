@@ -24,20 +24,12 @@ export class LoginFormComponent implements OnInit {
     private router: Router,
     ) { }
 
-  ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      this.isLoggedIn = true;
-      this.roles = this.storageService.getJwt().roles;
-    }
-  }
+  ngOnInit(): void {  }
 
   onSubmit(): void {
     this.authenticationService.login(this.regModel).subscribe({
       next: res => {
         this.storageService.saveJwt(res);
-
-        this.isLoggedIn = false;
-        this.isLoggedIn = true;
         this.roles = this.storageService.getJwt().roles;
         this.router.navigate(['/event']);
       },
@@ -52,6 +44,4 @@ export class LoginFormComponent implements OnInit {
     window.location.reload();
   }
 
-
 }
-// 

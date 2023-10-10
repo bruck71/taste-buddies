@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from 'src/models/login';
 import { Registration } from 'src/models/registration';
 import { StorageService } from './storage.service';
@@ -19,9 +19,19 @@ const httpOptions = {
 
 export class AuthenticationService {
 
-  constructor(private http: HttpClient, private storageService: StorageService) { }
+  private isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
+  //Expose an observable to subscribe to the login status changes
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
+  constructor(private http: HttpClient, private storageService: StorageService) {
+    //Initialize the isLoggedIn$ observable based on the stored login status
+    this.isLoggedInSubject.next(this.storageService.isLoggedIn()); 
+  }
 
   login(credentials: Login): Observable<any> {
+    //Update isLoggedIn to true once user is logged in
+    this.isLoggedInSubject.next(true);
     return this.http.post(
       AUTH_API + 'authenticate', 
       JSON.stringify(credentials),
@@ -40,10 +50,12 @@ export class AuthenticationService {
 
   logout(): void {
     this.storageService.clearJwt();
+    //Update isLoggedIn to false once user is logged out
+    this.isLoggedInSubject.next(false);
   }
 
   isAuthenticated(): boolean {
     return this.storageService.isLoggedIn();
   }
-
+  
 }

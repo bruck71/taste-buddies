@@ -11,7 +11,7 @@ import { StorageService } from 'src/services/storage.service';
 export class NavBarComponent implements OnInit {
 
   buttons = [
-    {buttonName : "Event", path : "event",}
+    {buttonName : "Event", path : "event",},
   ];
 
   loginLogout = {
@@ -26,19 +26,16 @@ export class NavBarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router) {}
 
-      ngOnInit(): void {
-        // Check if the user is logged in
-        this.loggedIn = this.storageService.isLoggedIn();
-
-        //Add/Change Buttons if user is logged in
-        if (this.loggedIn) {
+  ngOnInit(): void {
+    this.authenticationService.isLoggedIn$.subscribe(status => {
+    this.loggedIn = status;
+    //Update Navbar buttons based on login status
+      if (this.loggedIn) {
         this.loginLogout = {buttonName : "Sign Out", path : "/"}
         this.buttons.push({buttonName : "Account", path : "account"})
       }
-    }
-
-  // ngOnInit(): void {
-  // }
+    })
+  }
 
   logout(): void {
     this.authenticationService.logout();
