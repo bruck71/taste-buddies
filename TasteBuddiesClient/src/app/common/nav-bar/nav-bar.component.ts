@@ -11,7 +11,7 @@ import { StorageService } from 'src/services/storage.service';
 export class NavBarComponent implements OnInit {
 
   buttons = [
-    {buttonName : "Event", path : "event",},
+    {buttonName : "Events", path : "event",},
   ];
 
   loginLogout = {
