@@ -6,6 +6,7 @@ export class Event {
     entryCode: string; // six characters. Numbers too?
     location: string; // zip code? Address?
     searchRadius: string;  // meters?
+    eventName: string;
     restaurants: Array<{id: string}>;
     currentUser: User;
     otherUsers: Array<User>;
@@ -21,7 +22,8 @@ export class Event {
         id: number,
         location: string,
         date: Date,
-        searchRadius: string, 
+        searchRadius: string,
+        eventName: string, 
         restaurants: Array<{id: string}>,
         entryCode: string,
         currentUser: User,
@@ -37,6 +39,7 @@ export class Event {
             this.location = location;
             this.mealTime = date;
             this.searchRadius = searchRadius;
+            this.eventName = eventName;
             this.restaurants = restaurants;
             this.entryCode = entryCode;
             this.currentUser = currentUser;

@@ -14,7 +14,7 @@
 
       <ul *ngIf="upcommingEvents.length > 0; else noUpcommingEvents">
         <li  *ngFor="let event of upcommingEvents">
-          <a class="link" routerLink="/event/{{event.id}}">{{event.entryCode}} - {{event.mealTime | date: 'short'}}</a>
+          <a class="link" routerLink="/event/{{event.id}}" class="event-link">{{event.entryCode}} - {{event.mealTime | date: 'short'}}</a>
         </li>
       </ul>
       <ng-template #noUpcommingEvents>

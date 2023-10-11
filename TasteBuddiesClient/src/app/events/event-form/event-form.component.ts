@@ -9,7 +9,7 @@ import { EventService } from 'src/services/event.service';
   styleUrls: ['./event-form.component.css']
 })
 export class EventFormComponent implements OnInit {
-  newEvent: NewEventDTO = new NewEventDTO('63108', '2', new Date());
+  newEvent: NewEventDTO = new NewEventDTO('63108', '2', 'Saint Louis', new Date());
 
   constructor(
     private router: Router,
