@@ -95,9 +95,10 @@ public class EventController {
                 eventService.generateUniqueEntryCode(),
                 createEventFormDTO.getLocation(),
                 createEventFormDTO.getSearchRadius(),
+                createEventFormDTO.getPartySize(),
+                createEventFormDTO.getEventName(),
                 currentUser,
-                createEventFormDTO.getMealTime(),
-                createEventFormDTO.getEventName()
+                createEventFormDTO.getMealTime()
         );
 
         Location location = geocodeService.getGeocodeFromAddress(createEventFormDTO.getLocation());

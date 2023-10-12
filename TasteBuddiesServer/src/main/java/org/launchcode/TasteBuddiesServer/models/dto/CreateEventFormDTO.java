@@ -6,8 +6,10 @@ public class CreateEventFormDTO {
 
     private String location;
     private String searchRadius;
+    private String partySize;
     private Date mealTime;
     private String eventName;
+
 
     public String getLocation() {
         return location;
@@ -39,6 +41,14 @@ public class CreateEventFormDTO {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public String getPartySize() {
+        return partySize;
+    }
+
+    public void setPartySize(String partySize) {
+        this.partySize = partySize;
     }
 }
 

@@ -23,7 +23,8 @@ public class Event extends AbstractEntity {
 
     @NotNull
     private String searchRadius;
-
+    @NotNull
+    private String partySize;
     private String eventName;
 
     @Column(name = "mutually_liked_restaurant_id")
@@ -61,14 +62,15 @@ public class Event extends AbstractEntity {
 
     public Event(){ }
 
-    public Event(String entryCode, String location, String searchRadius, User initialUser, Date mealTime, String eventName) {
+    public Event(String entryCode, String location, String searchRadius, String partySize, String eventName, User initialUser, Date mealTime) {
         this.entryCode = entryCode;
         this.location = location;
         this.searchRadius = searchRadius;
+        this.partySize = partySize;
+        this.eventName = eventName;
         this.createdDate = new Date();
         this.users.add(initialUser);
         this.mealTime = mealTime;
-        this.eventName = eventName;
     }
 
     public List<Restaurant> getAvailableRestaurants() {
@@ -149,5 +151,13 @@ public class Event extends AbstractEntity {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public String getPartySize() {
+        return partySize;
+    }
+
+    public void setPartySize(String partySize) {
+        this.partySize = partySize;
     }
 }

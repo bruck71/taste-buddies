@@ -11,6 +11,8 @@ public class EventDTO {
     private String entryCode;
     private String location;
     private String searchRadius;
+    private String partySize;
+    private String eventName;
     private CurrentUserDTO currentUser;
     private List<OtherUserDTO> otherUsers;
     private List<Restaurant> restaurants;
@@ -25,6 +27,8 @@ public class EventDTO {
                     String entryCode,
                     String location,
                     String searchRadius,
+                    String partySize,
+                    String eventName,
                     User currentUser,
                     List<User> otherUsers,
                     List<Restaurant> restaurants,
@@ -34,6 +38,8 @@ public class EventDTO {
         this.entryCode = entryCode;
         this.location = location;
         this.searchRadius = searchRadius;
+        this.partySize = partySize;
+        this.eventName = eventName;
         this.currentUser = new CurrentUserDTO(currentUser);
         this.otherUsers = otherUsers
                 .stream()
@@ -50,6 +56,8 @@ public class EventDTO {
                 event.getEntryCode(),
                 event.getLocation(),
                 event.getSearchRadius(),
+                event.getPartySize(),
+                event.getEventName(),
                 currentUser,
                 event.getUsers(),
                 event.getAvailableRestaurants(),
@@ -90,6 +98,22 @@ public class EventDTO {
 
     public void setSearchRadius(String searchRadius) {
         this.searchRadius = searchRadius;
+    }
+
+    public String getPartySize() {
+        return partySize;
+    }
+
+    public void setPartySize(String partySize) {
+        this.partySize = partySize;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public CurrentUserDTO getCurrentUser() {
