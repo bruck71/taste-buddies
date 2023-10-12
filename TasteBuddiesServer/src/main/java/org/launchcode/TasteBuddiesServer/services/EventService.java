@@ -181,10 +181,12 @@ public class EventService {
                     }
                 }
             }
+
+            Integer partySize = Integer.parseInt(event.getPartySize());
             //Check if any restaurant has been liked by all users
             for (Map.Entry<String, Integer> entry : restaurantCounts.entrySet()) {
                 //If the number of likes on a restaurant is equal to the number of users in the event and greater than one.
-                if (entry.getValue() == event.getUsers().size() && entry.getValue() >= 2) {
+                if (Objects.equals(entry.getValue(), partySize)) {
                     return entry.getKey(); //Returns the ID of the mutually liked restaurant
                 }
             }
