@@ -14,7 +14,7 @@
 
       <ul *ngIf="upcommingEvents.length > 0; else noUpcommingEvents">
         <li  *ngFor="let event of upcommingEvents">
-          <a class="link" routerLink="/event/{{event.id}}" class="event-link">{{event.entryCode}} - {{event.mealTime | date: 'short'}}</a>
+          <a class="link" routerLink="/event/{{event.id}}" class="event-link">{{event.eventName}} - {{event.mealTime | date: 'short'}}</a>
         </li>
       </ul>
       <ng-template #noUpcommingEvents>
@@ -30,7 +30,7 @@
       <h3 class="mx-auto"> Past Events </h3>
       <ul *ngIf="pastEvents.length > 0; else noPastEvents" class="event-list">
         <li *ngFor="let event of pastEvents">
-          <a class="link" routerLink="./{{event.id}}" class="event-link">{{event.entryCode}} - {{event.mealTime | date: 'short'}}</a>
+          <a class="link" routerLink="./{{event.id}}" class="event-link">{{event.eventName}} - {{event.mealTime | date: 'short'}}</a>
         </li>
       </ul>
       <ng-template #noPastEvents>

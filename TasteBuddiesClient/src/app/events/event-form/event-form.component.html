@@ -13,9 +13,23 @@
                     <label class="form-label" for="location">Search area</label>
                     <input class="form-control" type="text" id="location" name="location" placeholder="Zip code" [(ngModel)]="newEvent.location">
                 </div>
-                <div class="mb-3">
-                    <label class="form-label" for="searchRadius">Search radius</label>
-                    <input class="form-control" type="number" id="searchRadius" name="searchRadius" placeholder="Radius in miles" [(ngModel)]="newEvent.searchRadius">
+                <div class="row">
+                    <!-- Search Radius Form -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="searchRadius">Search radius</label>
+                            <input class="form-control" type="number" id="searchRadius" name="searchRadius" placeholder="Radius in miles" [(ngModel)]="newEvent.searchRadius">
+                        </div>
+                    </div>
+                    <!-- Party Size Form -->
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label" for="partySize">Party Size</label>
+                            <select class="form-control" type="number"  id="partySize" name="partySize" [(ngModel)]="newEvent.partySize"> <!-- Add ngmodel code to save to backend -->
+                                <option *ngFor="let option of partySize" [value]="option">{{option}}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="eventName">Event Name</label>
