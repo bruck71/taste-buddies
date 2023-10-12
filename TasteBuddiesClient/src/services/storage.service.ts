@@ -48,6 +48,7 @@ export class StorageService {
 
     if (expired) {
       this.clearJwt();
+      return true;
     }
 
     return false;
