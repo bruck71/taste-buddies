@@ -15,15 +15,15 @@ export class EventFormComponent implements OnInit {
   constructor(
     private router: Router,
     private eventService: EventService,
-    ) { 
+    ) { }
 
-    }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
+    // Encode the User's location for uri construction
+    const encodedLocation = encodeURIComponent(this.newEvent.location);
+    // Update newEvent with encoded location
+    this.newEvent.location = encodedLocation;
 
     console.log(this.newEvent)
 
