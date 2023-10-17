@@ -11,7 +11,6 @@ import org.launchcode.TasteBuddiesServer.models.Restaurant;
 import org.launchcode.TasteBuddiesServer.models.User;
 import org.launchcode.TasteBuddiesServer.models.UserLikes;
 import org.launchcode.TasteBuddiesServer.models.dto.*;
-import org.launchcode.TasteBuddiesServer.models.geocode.Location;
 import org.launchcode.TasteBuddiesServer.models.place.ResultsPlace;
 import org.launchcode.TasteBuddiesServer.services.*;
 import org.springframework.http.HttpStatus;
@@ -37,16 +36,18 @@ public class EventController {
     private final EventService eventService;
     private final NearbyService nearbyService;
     private final GeocodeService geocodeService;
+    private final TextSearchService textSearchService;
     private final PlaceService placeService;
     private final UserLikesRepository userLikesRepository;
 
-    public EventController(RestaurantRepository restaurantRepository, EventRepository eventRepository, UserService userService, EventService eventService, NearbyService nearbyService, GeocodeService geocodeService, PlaceService placeService, UserLikesRepository userLikesRepository) {
+    public EventController(RestaurantRepository restaurantRepository, EventRepository eventRepository, UserService userService, EventService eventService, NearbyService nearbyService, GeocodeService geocodeService, TextSearchService textSearchService, PlaceService placeService, UserLikesRepository userLikesRepository) {
         this.restaurantRepository = restaurantRepository;
         this.eventRepository = eventRepository;
         this.userService = userService;
         this.eventService = eventService;
         this.nearbyService = nearbyService;
         this.geocodeService = geocodeService;
+        this.textSearchService = textSearchService;
         this.placeService = placeService;
         this.userLikesRepository = userLikesRepository;
     }
@@ -100,9 +101,12 @@ public class EventController {
                 currentUser,
                 createEventFormDTO.getMealTime()
         );
-
-        Location location = geocodeService.getGeocodeFromAddress(createEventFormDTO.getLocation());
-        List<String> placeIDs = nearbyService.getNearbyIDsFromLocationAndSearchRadius(location, createEventFormDTO.getSearchRadius());
+//Old Nearby Search Method for fetching Restaurants
+//        Location location = geocodeService.getGeocodeFromAddress(createEventFormDTO.getLocation());
+//        List<String> placeIDs = nearbyService.getNearbyIDsFromLocationAndSearchRadius(location, createEventFormDTO.getSearchRadius());
+//  End Old Method
+//        New Method
+        List<String> placeIDs = textSearchService.getNearbyIDsFromLocationAndSearchRadius(createEventFormDTO.getLocation(), createEventFormDTO.getSearchRadius());
         List<Restaurant> restaurants = new ArrayList<>();
 
         for (String placeID : placeIDs) {
