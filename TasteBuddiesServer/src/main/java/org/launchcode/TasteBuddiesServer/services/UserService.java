@@ -7,6 +7,8 @@ import org.launchcode.TasteBuddiesServer.models.User;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -23,6 +25,14 @@ public class UserService {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION).substring(7);
         String email = jwtUtil.extractUsername(token);
         return userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    public List<User> searchUsersByDisplayName(String query) {
+        return userRepository.findByDisplayNameContaining(query);
+    }
+
+    public List<User> searchUsersByEmail(String query) {
+        return userRepository.findByEmailContaining(query);
     }
 
 }
