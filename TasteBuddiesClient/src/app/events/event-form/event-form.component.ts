@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { NewEventDTO } from 'src/models/DTO/new-event-dto';
 import { EventService } from 'src/services/event.service';
+
+declare var google: any;
 
 @Component({
   selector: 'app-event-form',
@@ -11,17 +13,36 @@ import { EventService } from 'src/services/event.service';
 export class EventFormComponent implements OnInit {
   partySize: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10];
   newEvent: NewEventDTO = new NewEventDTO('63108', '2', '2', 'Saint Louis Event', new Date());
+  selectedLocation: string = '';
 
   constructor(
     private router: Router,
     private eventService: EventService,
+    private ngZone: NgZone,
     ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const locationInput = document.getElementById('location-input');
+    if (locationInput instanceof HTMLInputElement) {
+      const autocomplete = new google.maps.places.Autocomplete(locationInput, { types: ['geocode'] });
+
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (place.formatted_address) {
+            this.selectedLocation = place.formatted_address;
+          }
+        });
+      });
+    } else {
+      console.error("location input element not found.");
+    }
+  }
+
 
   onSubmit(): void {
     // Encode the User's location for uri construction
-    const encodedLocation = encodeURIComponent(this.newEvent.location);
+    const encodedLocation = encodeURIComponent(this.selectedLocation);
     // Update newEvent with encoded location
     this.newEvent.location = encodedLocation;
 
