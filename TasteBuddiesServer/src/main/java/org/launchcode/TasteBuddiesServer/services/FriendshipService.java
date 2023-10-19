@@ -7,6 +7,7 @@ import org.launchcode.TasteBuddiesServer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class FriendshipService {
 
@@ -41,5 +42,9 @@ public class FriendshipService {
         friendship.setStatus(Friendship.FriendshipStatus.REJECTED);
         friendship.setActionUser(friendship.getUser2()); //User 2 Rejects User 1's Friend Request
         return friendshipRepository.save(friendship);
+    }
+
+    public List<Friendship> getFriends(User user) {
+        return friendshipRepository.findByUser1AndStatus(user, Friendship.FriendshipStatus.ACCEPTED); //Find Users with Status = Accepted
     }
 }
