@@ -5,12 +5,13 @@ import org.launchcode.TasteBuddiesServer.data.FriendshipRepository;
 import org.launchcode.TasteBuddiesServer.models.Friendship;
 import org.launchcode.TasteBuddiesServer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class FriendshipService {
 
     private final FriendshipRepository friendshipRepository;

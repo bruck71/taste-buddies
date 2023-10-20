@@ -4,7 +4,7 @@ import org.launchcode.TasteBuddiesServer.data.UserRepository;
 import org.launchcode.TasteBuddiesServer.exception.UserNotFoundException;
 import org.launchcode.TasteBuddiesServer.models.Friendship;
 import org.launchcode.TasteBuddiesServer.models.User;
-import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
+//import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.OtherUserDTO;
 import org.launchcode.TasteBuddiesServer.services.FriendshipService;
 import org.launchcode.TasteBuddiesServer.services.UserService;
