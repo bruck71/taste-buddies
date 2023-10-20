@@ -2,7 +2,6 @@ package org.launchcode.TasteBuddiesServer.controllers;
 
 import org.launchcode.TasteBuddiesServer.data.UserRepository;
 import org.launchcode.TasteBuddiesServer.models.User;
-import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.OtherUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

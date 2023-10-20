@@ -10,8 +10,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
     public Optional<User> findByEmail(String email);
 
-    List<User> findByDisplayNameContaining(String query);
+    public List<User> findByDisplayNameContaining(String query);
 
-    List<User> findByEmailContaining(String query);
+    public List<User> findByEmailContaining(String query);
 
 }
