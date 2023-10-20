@@ -38,13 +38,16 @@ public class FriendshipController {
             ) {
         User currentUser = userService.getUserFromRequest(request);
         User friend = userRepository.findById(friendId).orElseThrow(() -> new UserNotFoundException("Friend not Found"));
+        System.out.println("Friend Request Attempt Made");
 
 //        Validate that the friend request is not a duplicate
         if (friendshipService.isFriendRequestDuplicate(currentUser, friend)) {
+            System.out.println("Friend Request Already Sent");
             return ResponseEntity.status(400).body("Friend request already sent.");
         }
 
         friendshipService.sendFriendRequest(currentUser, friend);
+        System.out.println("Friend Request Attempt Made.");
         return ResponseEntity.status(200).body("Friend Request Sent.");
     }
 

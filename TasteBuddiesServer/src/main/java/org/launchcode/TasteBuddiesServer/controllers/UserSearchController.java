@@ -26,6 +26,7 @@ public class UserSearchController {
         List<OtherUserDTO> userDTOs = users.stream()
                 .map(OtherUserDTO::new)
                 .collect(Collectors.toList());
+        System.out.println("User Search Request Made.");
         return ResponseEntity.status(200).body(userDTOs);
     }
 //      Uncomment to add ability for email search. Would need to update OtherUserDTO
