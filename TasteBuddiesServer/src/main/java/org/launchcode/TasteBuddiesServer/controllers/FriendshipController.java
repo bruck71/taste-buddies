@@ -33,7 +33,7 @@ public class FriendshipController {
 //    Send a Friend Request
     @PostMapping("/request")
     public ResponseEntity<?> sendFriendRequest(
-            @RequestParam int friendId,
+            @RequestBody int friendId,
             HttpServletRequest request
             ) {
         User currentUser = userService.getUserFromRequest(request);
