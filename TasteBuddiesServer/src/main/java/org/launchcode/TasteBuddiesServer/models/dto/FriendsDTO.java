@@ -5,11 +5,12 @@ public class FriendsDTO {
     private String displayName;
     private String email;
 
-    public FriendsDTO(int id, String displayName, String email) {
+    public FriendsDTO(int id, String displayName) {
         this.id = id;
         this.displayName = displayName;
-        this.email = email;
     }
+
+
 
     public int getId() {
         return id;

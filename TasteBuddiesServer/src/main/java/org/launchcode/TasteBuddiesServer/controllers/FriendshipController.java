@@ -5,6 +5,9 @@ import org.launchcode.TasteBuddiesServer.exception.UserNotFoundException;
 import org.launchcode.TasteBuddiesServer.models.Friendship;
 import org.launchcode.TasteBuddiesServer.models.User;
 //import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
+import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
+import org.launchcode.TasteBuddiesServer.models.dto.FriendsDTO;
+import org.launchcode.TasteBuddiesServer.models.dto.FriendshipDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.OtherUserDTO;
 import org.launchcode.TasteBuddiesServer.services.FriendshipService;
 import org.launchcode.TasteBuddiesServer.services.UserService;
@@ -33,9 +36,9 @@ public class FriendshipController {
 //    Send a Friend Request
     @PostMapping("/request")
     public ResponseEntity<?> sendFriendRequest(
-            @RequestBody int friendId,
+            @RequestParam int friendId,
             HttpServletRequest request
-            ) {
+    ) {
         User currentUser = userService.getUserFromRequest(request);
         User friend = userRepository.findById(friendId).orElseThrow(() -> new UserNotFoundException("Friend not Found"));
         System.out.println("Friend Request Attempt Made");
@@ -45,8 +48,25 @@ public class FriendshipController {
             System.out.println("Friend Request Already Sent");
             return ResponseEntity.status(400).body("Friend request already sent.");
         }
+//        Create a  FriendshipDTO for Current User
+        FriendsDTO sender = new FriendsDTO(
+                currentUser.getId(),
+                currentUser.getDisplayName()
+        );
 
-        friendshipService.sendFriendRequest(currentUser, friend);
+//        Create a  FriendshipDTO for Friend
+        FriendsDTO receiver = new FriendsDTO(
+                friend.getId(),
+                friend.getDisplayName()
+        );
+//        Create a FriendshipDTO with CurrentUserDTO and OtherUserDTO
+        FriendshipDTO friendshipDTO = new FriendshipDTO();
+        friendshipDTO.setUser(sender);
+        friendshipDTO.setFriend(receiver);
+        friendshipDTO.setStatus("PENDING");
+
+//         Use FriendshipDTO for service call
+        friendshipService.sendFriendRequest(friendshipDTO.getUser(), friendshipDTO.getFriend());
         System.out.println("Friend Request Attempt Made.");
         return ResponseEntity.status(200).body("Friend Request Sent.");
     }
@@ -60,13 +80,15 @@ public class FriendshipController {
         User currentUser = userService.getUserFromRequest(request);
         User friend = userRepository.findById(friendId).orElseThrow(() -> new UserNotFoundException("Friend not Found"));
 
-//        Check if pending friend request exists
-        Friendship friendship = friendshipService.getPendingFriendship(currentUser, friend);
-        if (friendship == null) {
-            return ResponseEntity.status(404).body("Friend request not found.");
-        }
 
-        friendshipService.acceptFriendRequest(friendship);
+        FriendshipDTO friendshipDTO = new FriendshipDTO(
+                new FriendsDTO(currentUser.getId(), currentUser.getDisplayName()),
+                new FriendsDTO(friend.getId(), friend.getDisplayName()),
+                "PENDING"
+        );
+//          Use friendship service to check if pending friend request exists and accept friend request.
+        friendshipService.acceptFriendRequest(friendshipDTO);
+
         return ResponseEntity.status(200).body("Friend request accepted.");
     }
 
@@ -79,33 +101,30 @@ public class FriendshipController {
         User currentUser = userService.getUserFromRequest(request);
         User friend = userRepository.findById(friendId).orElseThrow(() -> new UserNotFoundException("Friend not Found."));
 
-//        Check if pending friend request exists
-        Friendship friendship = friendshipService.getPendingFriendship(currentUser, friend);
-        if (friendship == null) {
-            return ResponseEntity.status(404).body("Friend request not found.");
-        }
+//        Use friendship service to check if pending friend request exists and reject friend
+        FriendshipDTO friendshipDTO = new FriendshipDTO(
+                new FriendsDTO(currentUser.getId(), currentUser.getDisplayName()),
+                new FriendsDTO(friend.getId(), friend.getDisplayName()),
+                "PENDING"
+        );
 
-        friendshipService.rejectFriendRequest(friendship);
+        friendshipService.rejectFriendRequest(friendshipDTO);
+
         return ResponseEntity.status(200).body("Friend request rejected.");
     }
 
 //    Get the user's friends list
     @GetMapping("/friends")
-    public ResponseEntity<?> getFriendsList(
-            @RequestParam int friendId,
-            HttpServletRequest request
-    ) {
+    public ResponseEntity<?> getFriendsList(HttpServletRequest request) {
         User currentUser = userService.getUserFromRequest(request);
-        List<User> friends = friendshipService.getFriendsList(currentUser);
+        FriendsDTO user = new FriendsDTO(currentUser.getId(), currentUser.getDisplayName());
+
+        List<FriendsDTO> friends = friendshipService.getFriendsList(user);
 
         if (friends.isEmpty()) {
             return ResponseEntity.status(204).body("No friends found.");
         }
 
-        List<OtherUserDTO> friendDTOs = friends.stream()
-                .map(OtherUserDTO::new)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.status(200).body(friendDTOs);
+        return ResponseEntity.status(200).body(friends);
     }
 }

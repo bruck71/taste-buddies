@@ -1,35 +1,41 @@
 package org.launchcode.TasteBuddiesServer.models.dto;
 
+import org.launchcode.TasteBuddiesServer.models.User;
+
+import javax.servlet.http.HttpServletRequest;
+
 public class FriendshipDTO {
     private int id;
-    private CurrentUserDTO user;
-    private OtherUserDTO friend;
+    private FriendsDTO user;
+    private FriendsDTO friend;
     private String status;
 
-    public FriendshipDTO(int id, CurrentUserDTO user, OtherUserDTO friend, String status) {
-        this.id = id;
+    public FriendshipDTO(FriendsDTO user, FriendsDTO friend, String status) {
         this.user = user;
         this.friend = friend;
         this.status = status;
+    }
+
+    public FriendshipDTO() {
     }
 
     public int getId() {
         return id;
     }
 
-    public CurrentUserDTO getUser() {
+    public FriendsDTO getUser() {
         return user;
     }
 
-    public void setUser(CurrentUserDTO user) {
+    public void setUser(FriendsDTO user) {
         this.user = user;
     }
 
-    public OtherUserDTO getFriend() {
+    public FriendsDTO getFriend() {
         return friend;
     }
 
-    public void setFriend(OtherUserDTO friend) {
+    public void setFriend(FriendsDTO friend) {
         this.friend = friend;
     }
 
