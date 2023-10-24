@@ -12,6 +12,9 @@ import { EventComponent } from './events/event.component';
 import { EventJoinComponent } from './events/event-join/event-join.component';
 import { EventResultComponent } from './events/event-result/event-result.component';
 import { EventPageComponent } from './events/event-page/event-page.component';
+import { FriendshipComponent } from './friends/friendship/friendship.component';
+import { FriendsListComponent } from './friends/friends-list/friends-list.component';
+import { UserSearchComponent } from './friends/user-search/user-search.component';
 //import { EventListComponent } from './event-list/event-list.component';
 
 const routes: Routes = [
@@ -27,6 +30,9 @@ const routes: Routes = [
   { path: 'event-page', title: 'Event Page', component: EventPageComponent, canActivate:[AuthGuard]},
   //{ path: 'event-list', title: 'Event List', component: EventListComponent canActivate:[AuthGuard]},
   { path: 'event/:id/result', component: EventResultComponent, canActivate: [AuthGuard] },
+  { path: 'friendship', title: 'Friendships', component: FriendshipComponent, canActivate:[AuthGuard]},
+  { path: 'friends-list', title: 'Friends List', component: FriendsListComponent, canActivate:[AuthGuard]},
+  { path: 'user-search', title: 'User Search', component: UserSearchComponent, canActivate:[AuthGuard]},
   { path: '**', title: 'Page not found', component: PageNotFoundComponent },
 ];
 

@@ -1,1 +1,77 @@
-<p>friendship works!</p>
+<div class="container">
+    <div class="row">
+      <!-- First Card: Find Buddies -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Find Buddies</h5>
+          </div>
+          <div class="card-body">
+            <!-- Search Form -->
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search by Display Name">
+              </div>
+              <!-- Search Results -->
+              <ul class="list-group">
+                <li class="list-group-item">
+                  User 1
+                  <button class="btn btn-primary float-right">Send Request</button>
+                  <!-- Or: <button class="btn btn-danger float-right">Remove</button> -->
+                </li>
+                <!-- More search results here... -->
+              </ul>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Second Card: Buddy Requests -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Buddy Requests</h5>
+          </div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Display Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>User 2</td>
+                  <td>
+                    <button class="btn btn-success">Accept</button>
+                    <button class="btn btn-danger">Reject</button>
+                  </td>
+                </tr>
+                <!-- More pending requests here... -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Third Card: My Buddies -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">My Buddies</h5>
+          </div>
+          <div class="card-body">
+            <!-- Individual Cards for Each Friend -->
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">User 3</h6>
+                <p class="card-text">Date Added: July 1, 2023</p>
+              </div>
+            </div>
+            <!-- More friend cards here... -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

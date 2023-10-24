@@ -33,6 +33,7 @@ export class NavBarComponent implements OnInit {
       if (this.loggedIn) {
         this.loginLogout = {buttonName : "Sign Out", path : "/"}
         this.buttons.push({buttonName : "Account", path : "account"})
+        this.buttons.push({buttonName : "Buddies", path: "friendship"})
       }
     })
   }
