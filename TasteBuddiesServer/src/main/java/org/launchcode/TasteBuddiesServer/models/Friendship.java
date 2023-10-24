@@ -32,6 +32,9 @@ public class Friendship {
     @JoinColumn(name = "action_user_id")
     private User actionUser;
 
+    public Friendship() {
+    }
+
     public Friendship(User user1, User user2, FriendshipStatus status, User requestedBy, LocalDateTime establishedDate, User actionUser) {
         this.user1 = user1;
         this.user2 = user2;

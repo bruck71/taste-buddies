@@ -49,15 +49,20 @@ public class FriendshipService {
 
 //    Accept Friend Request (User 2 Accepts Request)
     public Friendship acceptFriendRequest(FriendshipDTO friendshipDTO) {
-        FriendsDTO sender = friendshipDTO.getUser();
-        FriendsDTO receiver = friendshipDTO.getFriend();
+        FriendsDTO receiver = friendshipDTO.getUser();  // Receiver of friend request is now user
+        FriendsDTO sender = friendshipDTO.getFriend();  // Sender of friend request is now friend
 
+//        Get the User objects from the DTOs
+        User senderUser = userRepository.findById(sender.getId()).orElseThrow(() -> new UserNotFoundException("Sender not found"));
+        User receiverUser = userRepository.findById(receiver.getId()).orElseThrow(() -> new UserNotFoundException("Receiver not found"));
 //        Find Pending friendship request in the repository
-        Friendship friendship = friendshipRepository.findByUser1AndUser2AndStatus(sender.getId(), receiver.getId(), Friendship.FriendshipStatus.PENDING);
+        Friendship friendship = friendshipRepository.findByUser1AndUser2AndStatus(senderUser, receiverUser, Friendship.FriendshipStatus.PENDING);
         if (friendship == null) {
+            System.out.println("Friendship not found.");
             throw new UserNotFoundException("No Pending Friendships found.");
         }
 //        Update the friendship status to ACCEPTED
+        System.out.println("Friendship Found.");
         friendship.setStatus(Friendship.FriendshipStatus.ACCEPTED);
         friendship.setActionUser(friendship.getUser2()); //User 2 Accepts User 1's Friend Request
         friendship.setEstablishedDate(LocalDateTime.now());
@@ -69,16 +74,22 @@ public class FriendshipService {
 
 //        Reject Friend Request (User 2 Accepts Request)
     public Friendship rejectFriendRequest(FriendshipDTO friendshipDTO) {
-        FriendsDTO sender = friendshipDTO.getUser();
-        FriendsDTO receiver = friendshipDTO.getFriend();
+        FriendsDTO receiver = friendshipDTO.getUser();  // Receiver of friend request is now user
+        FriendsDTO sender = friendshipDTO.getFriend();  // Sender of friend request is now friend
+
+//        Get the User objects from the DTOs
+        User senderUser = userRepository.findById(sender.getId()).orElseThrow(() -> new UserNotFoundException("Sender not found"));
+        User receiverUser = userRepository.findById(receiver.getId()).orElseThrow(() -> new UserNotFoundException("Receiver not found"));
 
 //        Find Pending friendship request in the repository
 
-        Friendship friendship = friendshipRepository.findByUser1AndUser2AndStatus(sender.getId(), receiver.getId(), Friendship.FriendshipStatus.PENDING);
+        Friendship friendship = friendshipRepository.findByUser1AndUser2AndStatus(senderUser, receiverUser, Friendship.FriendshipStatus.PENDING);
         if (friendship == null) {
+            System.out.println("Friendship not found.");
             throw new UserNotFoundException("No Pending Friendships found.");
         }
 //        Update the Friendship with Rejected
+        System.out.println("Friendship Found.");
         friendship.setStatus(Friendship.FriendshipStatus.REJECTED);
         friendship.setActionUser(friendship.getUser2()); //User 2 Rejects User 1's Friend Request
         friendship.setEstablishedDate(LocalDateTime.now());
@@ -89,8 +100,8 @@ public class FriendshipService {
     }
 
     public List<Friendship> getFriendships(FriendsDTO friendsDTO) {
-
-        return friendshipRepository.findByUser1AndStatus(friendsDTO.getId(), Friendship.FriendshipStatus.ACCEPTED); //Find Users with Status = Accepted
+        User user = userRepository.findById(friendsDTO.getId()).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return friendshipRepository.findByUser1AndStatus(user, Friendship.FriendshipStatus.ACCEPTED); //Find Users with Status = Accepted
     }
 
     public List<FriendsDTO> getFriendsList(FriendsDTO friendsDTO) {
@@ -118,26 +129,5 @@ public class FriendshipService {
 
 //      Check if there are existing friendships requests between these two users
         return friendships.stream().anyMatch(friendship -> friendship.getStatus() == Friendship.FriendshipStatus.PENDING);
-    }
-
-    public Friendship getPendingFriendship(User sender, User receiver) {
-        List<Friendship> friendships = friendshipRepository.findByUser1AndStatus(sender.getId(), Friendship.FriendshipStatus.PENDING);
-
-//        Find a pending friendship where the second user is the receiver.
-        Optional<Friendship> pendingFriendship = friendships.stream()
-                .filter(friendship -> friendship.getUser2().equals(receiver))
-                .findFirst();
-        return pendingFriendship.orElse(null);
-    }
-
-    public FriendsDTO createFriendsDTOFromUserId(int userId) {
-        User user = userRepository.findById(userId).orElse(null);
-
-        if (user != null) {
-            FriendsDTO friendDTO = new FriendsDTO(user.getId(), user.getDisplayName());
-            return friendDTO;
-        } else {
-            return null;
-        }
     }
 }
