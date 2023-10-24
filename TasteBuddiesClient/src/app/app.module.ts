@@ -26,6 +26,9 @@ import { EventPageComponent } from './events/event-page/event-page.component';
 import { EventResultComponent } from './events/event-result/event-result.component';
 import { EventResultLeftComponent } from './events/event-result/event-result-left/event-result-left.component';
 import { EventResultRightComponent } from './events/event-result/event-result-right/event-result-right.component';
+import { FriendshipComponent } from './friends/friendship/friendship.component';
+import { FriendsListComponent } from './friends/friends-list/friends-list.component';
+import { UserSearchComponent } from './friends/user-search/user-search.component';
 //import { EventListComponent } from './event-list/event-list.component';
 
 @NgModule({
@@ -49,7 +52,10 @@ import { EventResultRightComponent } from './events/event-result/event-result-ri
     EventPageComponent,
     EventResultComponent,
     EventResultLeftComponent,
-    EventResultRightComponent
+    EventResultRightComponent,
+    FriendshipComponent,
+    FriendsListComponent,
+    UserSearchComponent
     //EventListComponent
   ],
   imports: [
