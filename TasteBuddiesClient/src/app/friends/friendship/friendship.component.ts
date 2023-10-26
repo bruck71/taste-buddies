@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FriendshipService } from 'src/app/services/friendship.service';
 import { UserSearchService } from 'src/app/services/user-search.service';
+import { FriendsDTO } from 'src/models/DTO/friends-dto';
 import { User } from 'src/models/user';
 
 @Component({
@@ -22,27 +23,39 @@ export class FriendshipComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // Send Friend Requests
+  // Send Friend Requests - Called when Send Request button is clicked.
+  sendFriendRequest(userId: number): void {
+    this.friendshipService.sendFriendRequest(userId).subscribe({
+      next: res => {
+        console.log('Friend request sent successfully.');
+      },
+      error: (error) => {
+        console.error('Error sending friend request:', error);
+      },
+    })
+  }
+
 
   // Accept Friend Requests
 
   // Reject Friend Requests
 
   // Search for Users
-  searchUsers(): void {
-    if (this.searchQuery.trim() === '') {
-      return; // Don't search with empty query
-    }
+  // searchUsers(): void {
+  //   if (this.searchQuery.trim() === '') {
+  //     return; // Don't search with empty query
+  //   }
 
+  onSubmit(): void {
     // Call the user search service
-    this.userSearchService.searchUsersByDisplayName(this.searchQuery).subscribe(
-      (results: User[]) => {
-        this.searchResults = results; //Store the search results
+    this.userSearchService.searchUsersByDisplayName(this.searchQuery).subscribe({
+      next: res => {
+        console.log('Search results:', res);
+        this.searchResults = res;
       },
-      (error) => {
-        console.error('Error:', error);
-      }
-    )
-  }
-
+      error: (error) => {
+        console.error('Search error:', error);
+      },
+    });
+  } 
 }

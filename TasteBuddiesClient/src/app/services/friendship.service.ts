@@ -47,7 +47,7 @@ export class FriendshipService {
   }
 
   // Get friends list
-  public getFriendsList(friendId: number): Observable<any> {
+  public getFriendsList(): Observable<any> {
     return this.http.get(
       `${FRIENDSHIP_API}friends`,
       httpOptions
