@@ -12,7 +12,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/user/search")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(
+        origins = "http://localhost:4200",
+        allowCredentials = "true"
+)
+
 public class UserSearchController {
     @Autowired
     private UserRepository userRepository;

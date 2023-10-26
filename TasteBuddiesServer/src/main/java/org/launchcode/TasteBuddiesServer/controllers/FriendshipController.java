@@ -4,7 +4,6 @@ import org.launchcode.TasteBuddiesServer.data.UserRepository;
 import org.launchcode.TasteBuddiesServer.exception.UserNotFoundException;
 import org.launchcode.TasteBuddiesServer.models.Friendship;
 import org.launchcode.TasteBuddiesServer.models.User;
-//import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.CurrentUserDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.FriendsDTO;
 import org.launchcode.TasteBuddiesServer.models.dto.FriendshipDTO;
@@ -21,7 +20,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/friendship")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(
+        origins = "http://localhost:4200",
+        allowCredentials = "true"
+)
 public class FriendshipController {
 
     @Autowired
@@ -41,7 +43,6 @@ public class FriendshipController {
     ) {
         User currentUser = userService.getUserFromRequest(request);
         User friend = userRepository.findById(friendId).orElseThrow(() -> new UserNotFoundException("Friend not Found"));
-        System.out.println("Friend Request Attempt Made");
 
 //        Validate that the friend request is not a duplicate
         if (friendshipService.isFriendRequestDuplicate(currentUser, friend)) {
@@ -68,7 +69,7 @@ public class FriendshipController {
 //         Use FriendshipDTO for service call
         friendshipService.sendFriendRequest(friendshipDTO.getUser(), friendshipDTO.getFriend());
         System.out.println("Friend Request Attempt Made.");
-        return ResponseEntity.status(200).body("Friend Request Sent.");
+        return ResponseEntity.status(200).build();
     }
 
 //    Accept a Friend Request
